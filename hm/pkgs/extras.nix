@@ -17,7 +17,7 @@
     vhs # Terminal GIF maker
     peco # Interactive filtering tool
     tealdeer # Cheatsheet of any command
-    chezmoi # Manage your dotfiles
+    #chezmoi # Manage your dotfiles
     #asciinema # Video recorder for ASCIInema
     #lazydocker # Docker interface
     hash-identifier # Identify Hash type
