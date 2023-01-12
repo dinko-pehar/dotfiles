@@ -80,14 +80,14 @@
       core = {
         editor = "nvim";
         # pager = delta
-        excludesfile = ".gitignore";
+        excludesfile = "~/.config/git/ignore";
         untrackedCache = true;
         # Commit file permissions
         filemode = false;
         #hooksPath = /home/dinko/.git_hooks
       };
       commit = {
-        template = "~/.git/config/message";
+        template = "~/.config/git/message";
         status = false;
       };
       status = {

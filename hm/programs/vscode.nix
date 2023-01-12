@@ -12,13 +12,13 @@ in
     userSettings = fromJSON (readFile "${vsCodeConfigPath}/settings.json");
     keybindings = fromJSON (readFile "${vsCodeConfigPath}/keybindings.json");
     # NOTE: These extensions are not added. Can be added in future if not needed:
-    # alefragnani.project-manager
     # fwcd.kotlin
     # ms-vscode.cpptools
     # naco-siren.gradle-language
     # vscjava.vscode-gradle
     # vitaliymaz.vscode-svg-previewer
     # ymotongpoo.licenser
+    # alefragnani.project-manager
     # -----------
     extensions = with pkgs; [
       vscode-extensions.pkief.material-icon-theme

@@ -5,12 +5,13 @@
     awscli2
     #awsweeper
     #docker
-    podman qemu
+    podman
+    qemu
     kubectx
     kubernetes-helm
     terraform
-    sops
+    #sops
     #groff # Related to AWS.
-    act # Run your GitHub Actions locally
+    #act # Run your GitHub Actions locally
   ];
 }
