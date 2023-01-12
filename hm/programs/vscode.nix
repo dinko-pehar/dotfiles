@@ -122,6 +122,12 @@ in
         version = "1.5.0";
         sha256 = "sha256-Lf+I2zN2bVDcVDhW9kJDvjm+PFa4WsjKhJPQRNndHfA=";
       }
+      {
+        name = "spellright";
+        publisher = "ban";
+        version = "3.0.112";
+        sha256 = "sha256-79Yg4I0OkfG7PaDYnTA8HK8jrSxre4FGriq0Baiq7wA=";
+      }
     ];
   };
 }
