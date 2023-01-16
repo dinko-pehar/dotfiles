@@ -98,6 +98,28 @@
         description = "alias ls=exa --long --header";
         body = "exa --long --header $argv";
       };
+      cloc-github = {
+        description = "Count LOC based on provided GitHub repository";
+        body = ''
+          if test (count $argv) -eq 1
+
+            set --function github_repo (string replace "https://github.com/" "" $argv[1])
+            set --function repository (string split '/' --field 2 $github_repo)
+
+            if test -e /tmp/$repository
+              command rm -rf /tmp/$repository
+            end
+
+            git clone -q $argv[1] /tmp/$repository
+
+            cloc /tmp/$repository
+
+          else
+            echo "Use `cloc-github https://github.com/hello/world` to count LOCs."
+            return 1
+          end
+        '';
+      };
       fish_user_key_bindings = {
         body = ''
           bind \cr 'peco_select_history (commandline -b)'
