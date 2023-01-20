@@ -16,5 +16,6 @@ in
   home.file.".config/pip/pip.conf".text = builtins.readFile ./configs/pip.conf;
   #home.file.".docker/config.json".text =
   #  builtins.readFile ./configs/docker/config.json;
+  home.file.".hushlogin".text = "";
 
 }
