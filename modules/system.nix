@@ -44,6 +44,34 @@
         autohide = true;
         mineffect = "scale";
       };
+      CustomUserPreferences = {
+        "com.apple.dock" = {
+          "tilesize" = 58.0;
+          "autohide-delay" = 0.2;
+          "show-recents" = 0;
+          "magnification" = 1;
+          "largesize" = 70; # Magnification size.
+          "show-process-indicators" = 1;
+        };
+        "com.apple.screencapture" = {
+          "include-date" = 0;
+          "show-thumbnail" = 0;
+        };
+        "com.apple.finder" = {
+          "_FXSortFoldersFirst" = 0;
+          "FXDefaultSearchScope" = "SCev";
+          "FXRemoveOldTrashItems" = 1;
+          "FXEnableExtensionChangeWarning" = 1;
+          "NSTableViewDefaultSizeMode" = 2;
+        };
+        "com.apple.menuextra.clock" = {
+          "FlashDateSeparators" = 0;
+          "DateFormat" = "HH:mm";
+        };
+        # "com.apple.universalaccess" = {
+        #   "reduceTransparency" = 0;
+        # };
+      };
     };
   };
 }

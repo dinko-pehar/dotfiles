@@ -2,6 +2,9 @@
 
 {
   environment = {
+    shells = [
+      "/Users/raziel/.nix-profile/bin/fish"
+    ];
     variables = {
       EDITOR = "nvim";
       LESS = "-rX";
