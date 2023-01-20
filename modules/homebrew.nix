@@ -18,6 +18,7 @@
       "webtorrent"
       "mongodb-compass"
       #"openemu"
+      "burp-suite"
     ];
   };
 }
