@@ -20,6 +20,7 @@
     #thc-hydra
     #burpsuite
     mongoaudit
+    commix
     # ----------------------------------- META ----------------------------------- #
     exploitdb # Database of exploits
     #wapiti

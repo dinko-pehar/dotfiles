@@ -26,5 +26,6 @@
     ngrok # Local tunnel
     ytmdl
     yt-dlp
+    shared-mime-info
   ];
 }

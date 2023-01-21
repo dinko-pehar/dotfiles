@@ -5,7 +5,7 @@
     awscli2
     #awsweeper
     #docker
-    podman
+    podman podman-compose
     qemu
     kubectx
     kubernetes-helm
