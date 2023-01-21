@@ -42,6 +42,8 @@ in
       vscode-extensions.ms-vscode-remote.remote-ssh
       vscode-extensions.hashicorp.terraform
       vscode-extensions.vscodevim.vim
+      vscode-extensions.rebornix.ruby
+      vscode-extensions.wingrunr21.vscode-ruby
     ] ++ vscode-utils.extensionsFromVscodeMarketplace [
       {
         name = "comment-divider";
@@ -127,6 +129,12 @@ in
         publisher = "ban";
         version = "3.0.112";
         sha256 = "sha256-79Yg4I0OkfG7PaDYnTA8HK8jrSxre4FGriq0Baiq7wA=";
+      }
+      {
+        name = "solargraph";
+        publisher = "castwide";
+        version = "0.24.0";
+        sha256 = "sha256-7mMzN+OdJ5R9CVaBJMzW218wMG5ETvNrUTST9/kjjV0=";
       }
     ];
   };
