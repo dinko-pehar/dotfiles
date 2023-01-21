@@ -15,6 +15,7 @@
     poetry # Python Env management
     python310Packages.bandit # Static Analyzer of Python code
     python310Packages.isort
+    python310Packages.flake8
 
     #rustc
     #rustfmt
@@ -26,14 +27,28 @@
     gopls
     go-outline
 
+    ruby
+    #bundler
+    pry
+    rubocop
+    brakeman
+    rubyPackages.solargraph
+    rubyPackages.thor
+    #rubyPackages.rake
+    rubyPackages.rack
+    rubyPackages.byebug
+    rubyPackages.nokogiri
+    rubyPackages.ffi
+
     #php74
     #php74Packages.composer # PHP package manager
+
     jdk17_headless
     kotlin
     kotlin-language-server
     ktlint
-    ruby_3_0
     dotnet-sdk
+
     nixfmt
     rnix-lsp
     nixpkgs-fmt
