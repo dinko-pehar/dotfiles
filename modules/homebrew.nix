@@ -14,7 +14,7 @@
       "rectangle"
       # scroll-reverser
       "insomnia"
-      #"vlc"
+      "vlc"
       "webtorrent"
       "mongodb-compass"
       #"openemu"
