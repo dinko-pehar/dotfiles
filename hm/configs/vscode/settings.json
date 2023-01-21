@@ -120,6 +120,19 @@
     "redhat.telemetry.enabled": true,
     "scm.defaultViewMode": "tree",
     "security.workspace.trust.banner": "never",
+    "spellright.documentTypes": [
+        "python",
+        "javascript",
+        "markdown",
+        "latex",
+        "plaintext"
+    ],
+    "spellright.ignoreFiles": [],
+    "spellright.language": [
+        "en"
+    ],
+    "spellright.notificationClass": "information",
+    "spellright.spellContext": "body comments strings",
     "svg.preview.autoOpen": true,
     "task.autoDetect": "off",
     "taskExplorer.enableExplorerView": false,
