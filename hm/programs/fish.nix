@@ -3,6 +3,11 @@
 {
   programs.fish = {
     enable = true;
+    # NOTE: Workaround to place some of the search paths at the beginning of $PATH.
+    #       This makes Ruby, Gem etc available.
+    shellInit = ''
+      fish_add_path --move --prepend --path $HOME/.nix-profile/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin $HOME/.local/share/gem/ruby/2.7.0/bin
+    '';
     interactiveShellInit = "starship init fish | source";
     plugins = [
       {
@@ -101,7 +106,7 @@
       cloc-github = {
         description = "Count LOC based on provided GitHub repository";
         body = ''
-          if test (count $argv) -eq 1
+          if test (count $argv) -eq 1; or test (count $argv) -eq 2
 
             set --function github_repo (string replace "https://github.com/" "" $argv[1])
             set --function repository (string split '/' --field 2 $github_repo)
@@ -112,7 +117,11 @@
 
             git clone -q $argv[1] /tmp/$repository
 
-            cloc /tmp/$repository
+            if test (count $argv) -eq 2
+                cloc /tmp/$repository/$argv[2]
+            else
+                cloc /tmp/$repository
+            end
 
           else
             echo "Use `cloc-github https://github.com/hello/world` to count LOCs."

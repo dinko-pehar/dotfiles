@@ -28,13 +28,15 @@
     go-outline
 
     ruby
-    #bundler
-    pry
     rubocop
     brakeman
-    rubyPackages.solargraph
+    # TODO: Remove override once maintainers bump to this version.
+    (rubyPackages.solargraph.override {
+      source.sha256 = "sha256-8QGayvMmjb4ReFOOagq5XomixZnFCYlSt9M5eIsTvt0=";
+      version = "0.48.0";
+    })
+
     rubyPackages.thor
-    #rubyPackages.rake
     rubyPackages.rack
     rubyPackages.byebug
     rubyPackages.nokogiri

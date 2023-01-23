@@ -27,5 +27,6 @@
     ytmdl
     yt-dlp
     shared-mime-info
+    pkg-config
   ];
 }

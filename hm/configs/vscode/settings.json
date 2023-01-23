@@ -118,6 +118,7 @@
     "python.terminal.activateEnvironment": false,
     "python.terminal.executeInFileDir": true,
     "redhat.telemetry.enabled": true,
+    "rubyTestExplorer.debugCommand": "rdbg",
     "scm.defaultViewMode": "tree",
     "security.workspace.trust.banner": "never",
     "spellright.documentTypes": [
@@ -147,6 +148,7 @@
     "terminal.integrated.fontSize": 15,
     "terminal.integrated.tabs.enabled": true,
     "terminal.integrated.shell.osx": "fish",
+    "testExplorer.hideWhen": "noAdapters",
     "todo-tree.filtering.excludeGlobs": [
         "**/node_modules",
         "**/.direnv"

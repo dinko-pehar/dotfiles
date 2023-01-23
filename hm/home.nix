@@ -18,4 +18,8 @@ in
   #  builtins.readFile ./configs/docker/config.json;
   home.file.".hushlogin".text = "";
 
+  # Ruby
+  home.file.".irbrc".text = builtins.readFile ./configs/ruby/irbrc.rb;
+  home.file.".bundle/config".text = builtins.readFile ./configs/ruby/bundle.yml;
+
 }
