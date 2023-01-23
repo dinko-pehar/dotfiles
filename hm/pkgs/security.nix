@@ -21,6 +21,9 @@
     #burpsuite
     mongoaudit
     commix
+    inql
+    scorecard
+    arsenal
     # ----------------------------------- META ----------------------------------- #
     exploitdb # Database of exploits
     #wapiti
