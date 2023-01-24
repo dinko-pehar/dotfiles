@@ -1,5 +1,4 @@
 ---
 BUNDLE_FORCE_RUBY_PLATFORM: "true"
 BUNDLE_PATH: "vendor/gems"
-BUNDLE_BIN: true
 BUNDLE_CONSOLE: irb

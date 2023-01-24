@@ -73,6 +73,9 @@
 
       "cspell.json"
       "package-lock.json"
+
+      # Ruby files
+      "vendor/gems"
     ];
     extraConfig = {
       color = { ui = "auto"; };
