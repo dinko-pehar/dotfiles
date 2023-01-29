@@ -19,6 +19,7 @@
       "mongodb-compass"
       #"openemu"
       "burp-suite"
+      "tomatobar"
     ];
   };
 }

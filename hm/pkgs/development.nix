@@ -49,7 +49,7 @@
     kotlin
     kotlin-language-server
     ktlint
-    dotnet-sdk
+    dotnet-sdk_7
 
     nixfmt
     rnix-lsp

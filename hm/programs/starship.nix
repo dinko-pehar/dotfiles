@@ -8,13 +8,13 @@
       add_newline = false;
       format = ''
         [╭ [$username](italic)$directory$git_branch$git_status](bold green)
-        [↣](bold green) $all
+        [⎨](bold green) $all
         [╰$character](bold green)
       '';
       scan_timeout = 10;
       character = {
-        success_symbol = "[ » ](bold green)";
-        error_symbol = "[ » ](bold red)";
+        success_symbol = "[ ʓ](bold blue)";
+        error_symbol = "[ ψ](bold red)";
       };
       username = {
         show_always = true;
