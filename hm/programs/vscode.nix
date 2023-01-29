@@ -93,6 +93,12 @@ let
       version = "3.0.112";
       sha256 = "sha256-79Yg4I0OkfG7PaDYnTA8HK8jrSxre4FGriq0Baiq7wA=";
     }
+    {
+      publisher = "dotjoshjohnson";
+      name = "xml";
+      version = "2.5.1";
+      sha256 = "sha256-ZwBNvbld8P1mLcKS7iHDqzxc8T6P1C+JQy54+6E3new=";
+    }
   ];
   rubyExtensions = [
     {
@@ -142,6 +148,24 @@ let
       sha256 = "sha256-WGljVkkcUhEoH3NDKjVcDVSboVkOt0v5gVu38vhiPXw=";
     }
   ];
+  golangExtensions = [ ];
+  # Below extensions are enabled or not categorized yet.
+  miscExtensions = [
+    {
+      publisher = "ms-dotnettools";
+      name = "csharp";
+      version = "1.24.4";
+      sha256 = "sha256-LoCTMtXSaWMb0ANTzVQwOIMFHGJ3tzt0ns3mk8dZ0L4=";
+    }
+    # Cmake
+    # C/C++
+    # SonarLint
+    # Open In GitHub
+    # Playwright
+  ];
+
+
+  allExtensions = coreExtensions ++ utilExtensions ++ rubyExtensions ++ pythonExtensions ++ rustExtensions ++ miscExtensions;
 
 in
 {
@@ -163,7 +187,7 @@ in
       github.github-vscode-theme
       tamasfe.even-better-toml
       shd101wyy.markdown-preview-enhanced
-      redhat.vscode-xml
+      #redhat.vscode-xml
       redhat.vscode-yaml
       mikestead.dotenv
       eamodio.gitlens
@@ -183,16 +207,9 @@ in
       rebornix.ruby
       wingrunr21.vscode-ruby
       alefragnani.project-manager
-    ]
-    ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace (
-      coreExtensions ++
-        utilExtensions ++
-        rubyExtensions ++
-        pythonExtensions ++
-        rustExtensions ++
-        );
-      };
-  }
+    ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace allExtensions;
+  };
+}
 
 
 
