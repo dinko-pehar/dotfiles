@@ -1,33 +1,9 @@
 set nocompatible " Disable compatibility with vi which can cause unexpected issues.
+
 filetype off
-
-" Set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-
-" PLUGINS ---------------------------------------------------------------- {{{
-
-" Download plug-ins to the ~/.vim/plugged/ directory
-call vundle#begin('~/.vim/plugged')
-
-" Let Vundle manage Vundle
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'morhetz/gruvbox'
-Plugin 'preservim/nerdtree'
-Plugin 'preservim/tagbar'
-Plugin 'vim-crystal/vim-crystal'
-Plugin 'vim-airline/vim-airline'
-Plugin 'https://github.com/tpope/vim-fugitive'
-Plugin 'https://github.com/airblade/vim-gitgutter'
-Plugin 'ryanoasis/vim-devicons'
-Plugin 'neoclide/coc.nvim', {'branch': 'release'}
-call vundle#end()
-
-" }}}
-
 filetype plugin indent on
-
 syntax on          " Enable syntax highlighting
+
 set ruler
 set cc=80
 set showcmd
@@ -71,7 +47,7 @@ set wildmode=list:longest
 set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 
 set background=dark   " dark or light
-colorscheme gruvbox  " Your favorite color scheme's name
+colorscheme gruvbox8  " Your favorite color scheme's name
 
 " Focus the panel when opening it
 let g:tagbar_autofocus = 1

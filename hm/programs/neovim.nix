@@ -8,6 +8,13 @@
     plugins = with pkgs.vimPlugins; [
       vim-gruvbox8
       nerdtree
+      Vundle-vim
+      vim-polyglot
+      tagbar
+      vim-airline
+      vim-fugitive
+      vim-gitgutter
+      vim-devicons
     ];
     coc = {
       enable = true;
