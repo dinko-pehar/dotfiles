@@ -7,6 +7,7 @@
     onefetch
     httpie # cURL pretty alternative
     ripgrep
+    todo-txt-cli
 
     wrk # HTTP benchmarking tool
     vegeta # Load testing tool
@@ -28,5 +29,8 @@
     yt-dlp
     shared-mime-info
     pkg-config
+    exiftool
+    fzf
+    id3lib
   ];
 }

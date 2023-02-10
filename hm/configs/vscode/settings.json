@@ -50,7 +50,7 @@
     "docwriter.progress.trackFunctions": false,
     "editor.accessibilitySupport": "off",
     "editor.cursorBlinking": "phase",
-    "editor.cursorSmoothCaretAnimation": true,
+    "editor.cursorSmoothCaretAnimation": "on",
     "editor.cursorStyle": "line-thin",
     "editor.find.autoFindInSelection": "multiline",
     "editor.find.loop": false,
@@ -82,6 +82,7 @@
     "errorLens.fontStyleItalic": true,
     "errorLens.gutterIconsEnabled": true,
     "explorer.compactFolders": false,
+    "explorerExclude.showPicker": false,
     "extensions.ignoreRecommendations": true,
     "files.associations": {
         "*.vala": "java"
@@ -119,6 +120,7 @@
     "python.terminal.activateEnvironment": false,
     "python.terminal.executeInFileDir": true,
     "rubyTestExplorer.debugCommand": "rdbg",
+    "redhat.telemetry.enabled": false,
     "scm.defaultViewMode": "tree",
     "security.workspace.trust.banner": "never",
     "spellright.documentTypes": [
@@ -169,7 +171,7 @@
     "todo-tree.highlights.enabled": false,
     "todo-tree.highlights.useColourScheme": true,
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
-    "todo-tree.ripgrep.ripgrep": "/home/dinko/.nix-profile/bin/rg",
+    "todo-tree.ripgrep.ripgrep": "/home/raziel/.nix-profile/bin/rg",
     "todo-tree.tree.disableCompactFolders": true,
     "todo-tree.tree.expanded": true,
     "todo-tree.tree.flat": true,
@@ -178,6 +180,7 @@
     "vim.cursorStylePerMode.insert": "line-thin",
     "vim.sneak": true,
     "vsintellicode.java.completionsEnabled": false,
+    "vsintellicode.modelDownloadPath": "/Users/raziel/.cache/intellicode",
     "window.titleBarStyle": "custom",
     "workbench.colorCustomizations": {
         "[GitHub Dark]": {
@@ -192,5 +195,5 @@
     "workbench.startupEditor": "newUntitledFile",
     "workbench.tree.indent": 16,
     "workbench.iconTheme": "material-icon-theme",
-    "workbench.view.alwaysShowHeaderActions": true
+    "workbench.view.alwaysShowHeaderActions": false
 }

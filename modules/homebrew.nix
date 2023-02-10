@@ -7,7 +7,7 @@
     casks = [
       # alfred
       # cyberduck
-      # sketch
+      "sketch"
       # figma
       "keycastr"
       # nightowl
@@ -17,6 +17,7 @@
       "vlc"
       "webtorrent"
       "mongodb-compass"
+      "mongodb-realm-studio"
       #"openemu"
       "burp-suite"
       "tomatobar"

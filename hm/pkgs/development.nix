@@ -27,6 +27,8 @@
     gopls
     go-outline
 
+    cmake
+
     ruby
     rubocop
     brakeman
@@ -41,6 +43,7 @@
     rubyPackages.byebug
     rubyPackages.nokogiri
     rubyPackages.ffi
+    crystal
 
     #php74
     #php74Packages.composer # PHP package manager
