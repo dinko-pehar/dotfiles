@@ -17,7 +17,7 @@
       "vlc"
       "webtorrent"
       "mongodb-compass"
-      "mongodb-realm-studio"
+      #"mongodb-realm-studio"
       #"openemu"
       "burp-suite"
       "tomatobar"

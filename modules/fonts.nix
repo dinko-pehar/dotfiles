@@ -4,8 +4,7 @@
   fonts = {
     fontDir.enable = true;
     fonts = [
-      pkgs.paratype-pt-mono
-      pkgs.jetbrains-mono
+      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; })
     ];
   };
 }

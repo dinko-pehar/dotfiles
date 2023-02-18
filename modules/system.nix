@@ -7,6 +7,7 @@
     postgresql.enable = false;
     # Auto upgrade nix package and the daemon service.
     nix-daemon.enable = true;
+    yabai.enable = false;
   };
   system = {
     # `stateVersion` is something about backward compatibility.
