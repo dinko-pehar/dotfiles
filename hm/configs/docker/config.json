@@ -1,3 +1,0 @@
-{
-  "psFormat": "ID\t{{.ID}}\nImage\t{{.Image}}\nName\t{{.Names}}\nPorts\t{{.Ports}}\nCommand\t{{.Command}}\nCreated\t{{.CreatedAt}}\nStatus\t{{.Status}}\n+++++++++++++++++++++++++\n"
-}
