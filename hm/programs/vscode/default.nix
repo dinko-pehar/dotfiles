@@ -3,7 +3,6 @@
 with builtins;
 
 let
-  vsCodeConfigPath = ../configs/vscode;
 
   coreExtensions = [
     {
@@ -12,12 +11,12 @@ let
       version = "0.4.4";
       sha256 = "sha256-PHbqpIDdUWZ/CGVjHQUat5A0tjGYhS4BNze3mzDjbfw=";
     }
-    {
-      publisher = "VisualStudioExptTeam";
-      name = "vscodeintellicode";
-      version = "1.2.30";
-      sha256 = "sha256-f2Gn+W0QHN8jD5aCG+P93Y+JDr/vs2ldGL7uQwBK4lE=";
-    }
+    # {
+    #   publisher = "VisualStudioExptTeam";
+    #   name = "vscodeintellicode";
+    #   version = "1.2.30";
+    #   sha256 = "sha256-f2Gn+W0QHN8jD5aCG+P93Y+JDr/vs2ldGL7uQwBK4lE=";
+    # }
     {
       publisher = "ms-azuretools";
       name = "vscode-docker";
@@ -99,6 +98,18 @@ let
       version = "2.5.1";
       sha256 = "sha256-ZwBNvbld8P1mLcKS7iHDqzxc8T6P1C+JQy54+6E3new=";
     }
+    {
+      publisher = "PeterSchmalfeldt";
+      name = "explorer-exclude";
+      version = "1.3.2";
+      sha256 = "sha256-B7zdf3Artolz5K6hwA+bIdLP0v4w9K+SsQ/QVorRG84=";
+    }
+    {
+      publisher = "savioserra";
+      name = "theme-switcher";
+      version = "2.0.2";
+      sha256 = "sha256-pGwGV1YiINKzoCzWLMyAeHex6BapMffu5XAF6Wc9XcE=";
+    }
   ];
   rubyExtensions = [
     {
@@ -157,9 +168,25 @@ let
       version = "1.24.4";
       sha256 = "sha256-LoCTMtXSaWMb0ANTzVQwOIMFHGJ3tzt0ns3mk8dZ0L4=";
     }
-    # Cmake
-    # C/C++
-    # SonarLint
+    {
+      publisher = "arrterian";
+      name = "nix-env-selector";
+      version = "1.0.9";
+      sha256 = "sha256-TkxqWZ8X+PAonzeXQ+sI9WI+XlqUHll7YyM7N9uErk0=";
+    }
+    {
+      publisher = "ms-vscode";
+      name = "cpptools";
+      version = "1.14.0";
+      sha256 = "sha256-z0oMVl00YpYlWqK5kvQJvZSJBfiUBEQwjS9QzZCqT8Q=";
+    }
+    {
+      publisher = "miguelsolorio";
+      name = "fluent-icons";
+      version = "0.0.18";
+      sha256 = "sha256-sE0A441QPwokBoLoCqtImDHmlAXd66fj8zsJR7Ci+Qs=";
+    }
+
     # Open In GitHub
     # Playwright
   ];
@@ -171,9 +198,10 @@ in
 {
   programs.vscode = {
     enable = true;
+    package = pkgs.vscodium;
     enableUpdateCheck = true;
-    userSettings = fromJSON (readFile "${vsCodeConfigPath}/settings.json");
-    keybindings = fromJSON (readFile "${vsCodeConfigPath}/keybindings.json");
+    #userSettings = fromJSON (readFile "${vsCodeConfigPath}/settings.json");
+    keybindings = fromJSON (readFile ./keybindings.json);
     # NOTE: These extensions are not added. Can be added in future if not needed:
     # fwcd.kotlin
     # ms-vscode.cpptools
@@ -207,6 +235,10 @@ in
       rebornix.ruby
       wingrunr21.vscode-ruby
       alefragnani.project-manager
+      ms-vscode.cmake-tools
+      twxs.cmake
+      sonarsource.sonarlint-vscode
+      jdinhlife.gruvbox
     ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace allExtensions;
   };
 }
