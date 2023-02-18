@@ -69,9 +69,9 @@
         body = "command mkdir -v $argv";
       };
       tree = {
-        description = "alias tree=exa --tree --level=2";
-        wraps = "exa --tree --level=2";
-        body = "exa --tree --level=2 $argv";
+        description = "alias tree=exa --icons --tree --level=2";
+        wraps = "exa --icons --tree --level=2";
+        body = "exa --icons --tree --level=2 $argv";
       };
       ping = {
         description = "alias ping=ping -c 3";
@@ -94,14 +94,14 @@
         body = "bat --style plain $argv";
       };
       l = {
-        wraps = "exa --long --header --all";
-        description = "alias l=exa --long --header --all";
-        body = "exa --long --header --all $argv";
+        wraps = "exa --icons --long --header --all";
+        description = "alias l=exa --icons --long --header --all";
+        body = "exa --icons --long --header --all $argv";
       };
       ls = {
-        wraps = "exa --long --header";
-        description = "alias ls=exa --long --header";
-        body = "exa --long --header $argv";
+        wraps = "exa --icons --long --header";
+        description = "alias ls=exa --icons --long --header";
+        body = "exa --icons --long --header $argv";
       };
       cloc-github = {
         description = "Count LOC based on provided GitHub repository";

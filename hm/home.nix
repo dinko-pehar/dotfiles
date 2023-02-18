@@ -13,13 +13,8 @@ in
 
   nixpkgs.config.allowUnfree = true;
 
-  home.file.".config/pip/pip.conf".text = builtins.readFile ./configs/pip.conf;
-  #home.file.".docker/config.json".text =
-  #  builtins.readFile ./configs/docker/config.json;
   home.file.".hushlogin".text = "";
 
-  # Ruby
-  home.file.".irbrc".text = builtins.readFile ./configs/ruby/irbrc.rb;
-  home.file.".bundle/config".text = builtins.readFile ./configs/ruby/bundle.yml;
+
 
 }
