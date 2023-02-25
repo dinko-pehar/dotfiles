@@ -197,7 +197,7 @@ let
 in
 {
   programs.vscode = {
-    enable = true;
+    enable = false;
     package = pkgs.vscodium;
     enableUpdateCheck = true;
     #userSettings = fromJSON (readFile "${vsCodeConfigPath}/settings.json");
