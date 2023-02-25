@@ -23,7 +23,7 @@
     commix
     inql
     scorecard
-    arsenal
+    #arsenal
     # ----------------------------------- META ----------------------------------- #
     exploitdb # Database of exploits
     #wapiti

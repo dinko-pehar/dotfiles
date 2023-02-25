@@ -14,7 +14,6 @@
     rustup
 
     hugo
-    go
     gopls
     go-outline
 
@@ -38,6 +37,15 @@
     pg_activity
     sqlite
     mongosh
+
+    luaformatter
+    yamlfmt
+    taplo
+
+    nodePackages.pyright
+    nodePackages.typescript-language-server
+    nodePackages.typescript
+    lua-language-server
 
   ];
 }

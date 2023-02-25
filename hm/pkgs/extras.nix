@@ -15,7 +15,7 @@
     git-extras # Git utilities
     delta # Diff viewer
 
-    vhs # Terminal GIF maker
+    #vhs # Terminal GIF maker
     peco # Interactive filtering tool
     tealdeer # Cheatsheet of any command
     #chezmoi # Manage your dotfiles
