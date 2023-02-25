@@ -48,6 +48,16 @@
 
     ];
     functions = {
+      v = {
+        description = "alias v=nvim";
+        wraps = "nvim";
+        body = "command nvim $argv";
+      };
+      vim = {
+        description = "alias vim=nvim";
+        wraps = "nvim";
+        body = "command nvim $argv";
+      };
       cp = {
         description = "alias cp=cp -v";
         wraps = "cp";
