@@ -1,4 +1,0 @@
-return {
-  options = { theme = 'gruvbox' },
-} 
-
