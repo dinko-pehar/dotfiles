@@ -7,6 +7,7 @@
     #       This makes Ruby, Gem etc available.
     shellInit = ''
       fish_add_path --move --prepend --path $HOME/.nix-profile/bin /nix/var/nix/profiles/default/bin /run/current-system/sw/bin $HOME/.local/share/gem/ruby/2.7.0/bin
+      fish_add_path --move --path $HOME/.local/share/pnpm_bin
     '';
     interactiveShellInit = "starship init fish | source";
     plugins = [
