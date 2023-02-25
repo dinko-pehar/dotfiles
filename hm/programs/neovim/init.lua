@@ -8,7 +8,8 @@ opt.ttyfast = true -- Speed up scrolling ?
 vim.cmd.filetype("plugin indent on")
 
 -- General
-opt.cc = "80" -- Ruler position.
+-- Managed by plugin in plugins.
+--opt.cc = "72,80,96" -- Ruler position.
 -- opt.relativenumber = true
 opt.number = true
 opt.numberwidth = 6
