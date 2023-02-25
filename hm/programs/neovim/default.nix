@@ -3,7 +3,7 @@
 {
 
   # NOTE: This is workaround.
-  home.packages = with pkgs; [ neovim ];
+  home.packages = with pkgs; [ neovim fd];
   programs.neovim = {
     enable = false;
     vimAlias = true;
