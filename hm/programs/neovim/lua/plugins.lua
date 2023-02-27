@@ -158,7 +158,7 @@ return require('packer').startup(function(use)
                     show_filename_only = true, -- shows base filename only instead of relative path in filename
                     modified_icon = "+ ", -- change the default modified icon
                     modified_italic = true, -- set to true by default; this determines whether the filename turns italic if modified
-                    show_tabs_only = false -- this shows only tabs instead of tabs + buffers
+                    show_tabs_only = true -- this shows only tabs instead of tabs + buffers
                 }
             }
             vim.cmd [[
@@ -293,6 +293,11 @@ return require('packer').startup(function(use)
         end
     }
 
+    use {
+        'karb94/neoscroll.nvim',
+        config = function() require('neoscroll').setup() end
+
+    }
     -- Fun
 
     -- Dev 
@@ -351,13 +356,156 @@ return require('packer').startup(function(use)
         config = function() require('Comment').setup() end
     }
     use {'LnL7/vim-nix'}
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
     -- Dev
 
     -- LSP
     use {
         'neovim/nvim-lspconfig',
-        config = function() require'lspconfig'.pyright.setup {} end
+        config = function()
+
+            local lspconfig = require('lspconfig')
+
+
+            local signs = {
+                Error = " ",
+                Warn = "",
+                Hint = " ",
+                Info = " "
+            }
+            for type, icon in pairs(signs) do
+                local hl = "DiagnosticSign" .. type
+                vim.fn.sign_define(hl, {text = icon, texthl = hl, numhl = hl})
+            end
+
+            vim.diagnostic.config({
+                virtual_text = {
+                    source = "if_many" -- Or "if_many"
+                },
+                float = {
+                    source = "if_many" -- Or "if_many"
+                }
+            })
+
+            local on_attach = function(client, bufnr)
+                vim.api.nvim_buf_set_option(bufnr, 'omnifunc',
+                                            'v:lua.vim.lsp.omnifunc')
+
+                -- Mappings.
+                -- See `:help vim.lsp.*` for documentation on any of the below functions
+                local bufopts = {noremap = true, silent = true, buffer = bufnr}
+                vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+                vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+                vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+                vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+                vim.keymap
+                    .set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+                -- Telescope specific for references
+                vim.keymap.set('n', 'gr', function()
+                    require('telescope.builtin').lsp_references()
+                end, {noremap = true, silent = true})
+
+                -- Workspace specific
+                vim.keymap.set('n', '<space>wa',
+                               vim.lsp.buf.add_workspace_folder, bufopts)
+                vim.keymap.set('n', '<space>wr',
+                               vim.lsp.buf.remove_workspace_folder, bufopts)
+                vim.keymap.set('n', '<space>wl', function()
+                    print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+                end, bufopts)
+
+                vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition,
+                               bufopts)
+                vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+                vim.keymap.set('n', '<space>f', function()
+                    vim.lsp.buf.format {async = true}
+                end, bufopts)
+
+            end
+
+            local lua_ls = {
+                Lua = {
+                    runtime = {
+                        -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+                        version = 'LuaJIT'
+                    },
+                    diagnostics = {
+                        -- Get the language server to recognize the `vim` global
+                        globals = {'vim'}
+                    },
+                    workspace = {
+                        -- Make the server aware of Neovim runtime files
+                        library = vim.api.nvim_get_runtime_file("", true)
+                    },
+                    -- Do not send telemetry data containing a randomized but unique identifier
+                    telemetry = {enable = false}
+                }
+            }
+
+            lspconfig['pyright'].setup({
+                on_attach = on_attach
+            })
+            lspconfig['lua_ls'].setup({
+                on_attach = on_attach,
+                settings = lua_ls
+            })
+        end
     }
+    -- use({
+    --     "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    --     config = function()
+    --         vim.diagnostic.config({virtual_text = false})
+    --         require("lsp_lines").setup()
+    --         -- Disable virtual_text since it's redundant due to lsp_lines.
+    --     end
+    -- })
+    use {
+        'simrat39/symbols-outline.nvim',
+
+        config = function()
+            require("symbols-outline").setup()
+
+            vim.api.nvim_set_keymap("n", "<F8>", ":SymbolsOutline<cr>",
+                                    {silent = true, noremap = true})
+
+        end
+
+    }
+    -- use {
+    --     "amrbashir/nvim-docs-view",
+    --     opt = true,
+    --     cmd = {"DocsViewToggle"},
+    --     config = function()
+    --         require("docs-view").setup {position = "bottom"}
+    --     end
+    -- }
+    -- use {
+    --     'kosayoda/nvim-lightbulb',
+    --     requires = 'antoinemadec/FixCursorHold.nvim',
+    --     config = function()
+    --         require('nvim-lightbulb').setup({autocmd = {enabled = true}})
+    --     end
+    -- }
+    use {
+        'mfussenegger/nvim-lint',
+        config = function()
+            vim.api.nvim_create_autocmd({"BufWritePost"}, {
+                callback = function() require("lint").try_lint() end
+            })
+            require('lint').linters_by_ft = {
+                python = {'bandit', 'vulture', 'flake8'},
+                nix = {'nix'}
+            }
+        end
+    }
+    -- use {
+    --
+    --     "ray-x/lsp_signature.nvim",
+    --     config = function() require"lsp_signature".setup() end
+    -- }
     -- LSP
 
     if packer_bootstrap then require('packer').sync() end
