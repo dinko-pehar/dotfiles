@@ -14,6 +14,7 @@
 
     git-extras # Git utilities
     delta # Diff viewer
+    lazygit
 
     #vhs # Terminal GIF maker
     peco # Interactive filtering tool
