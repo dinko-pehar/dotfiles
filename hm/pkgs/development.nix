@@ -3,7 +3,7 @@
 {
   home.packages = with pkgs; [
     # -------------------------------- DEVELOPMENT ------------------------------- #
-    nodejs
+    # NodeJS is managed by PNPM
     nodePackages.pnpm
     nodePackages.yarn
     deno
