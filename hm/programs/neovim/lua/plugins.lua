@@ -34,11 +34,28 @@ return require('packer').startup(function(use)
         "numToStr/FTerm.nvim",
         config = function()
 
-            -- Example keybindings
-            vim.keymap
-                .set('n', '<F3>', '<CMD>lua require("FTerm").toggle()<CR>')
-            vim.keymap.set('t', '<F3>',
-                           '<C-\\><C-n><CMD>lua require("FTerm").toggle()<CR>')
+            local fterm = require("FTerm")
+
+            local term_1 = fterm:new({
+                ft = 'Terminal_1',
+                dimensions = {width = 0.5, height = 0.7},
+                border = "double"
+            })
+            local term_2 = fterm:new({
+                ft = 'Terminal_2',
+                dimensions = {width = 0.5, height = 0.7},
+                border = "double"
+            })
+
+            -- Example keybindings, allows creating 2 terminals.
+            vim.keymap.set('n', '<F3>', function() term_1:toggle() end)
+            vim.keymap.set('t', '<F3>', function() term_1:toggle() end)
+            vim.keymap.set('n', '<leader><F3>', function()
+                term_2:toggle()
+            end)
+            vim.keymap.set('t', '<leader><F3>', function()
+                term_2:toggle()
+            end)
         end
     }
     use {
@@ -50,127 +67,58 @@ return require('packer').startup(function(use)
             vim.g.loaded_netrw = 1
             vim.g.loaded_netrwPlugin = 1
 
-            local lib = require("nvim-tree.lib")
-            local view = require("nvim-tree.view")
+            local nvim_tree = require('nvim-tree')
 
-            local function collapse_all()
-                require("nvim-tree.actions.tree-modifiers.collapse-all").fn()
-            end
-
-            local function edit_or_open()
-                -- open as vsplit on current node
-                local action = "edit"
-                local node = lib.get_node_at_cursor()
-
-                -- Just copy what's done normally with vsplit
-                if node.link_to and not node.nodes then
-                    require('nvim-tree.actions.node.open-file').fn(action,
-                                                                   node.link_to)
-
-                elseif node.nodes ~= nil then
-                    lib.expand_or_collapse(node)
-
-                else
-                    require('nvim-tree.actions.node.open-file').fn(action,
-                                                                   node.absolute_path)
-                end
-
-            end
-
-            local function vsplit_preview()
-                -- open as vsplit on current node
-                local action = "vsplit"
-                local node = lib.get_node_at_cursor()
-
-                -- Just copy what's done normally with vsplit
-                if node.link_to and not node.nodes then
-                    require('nvim-tree.actions.node.open-file').fn(action,
-                                                                   node.link_to)
-
-                elseif node.nodes ~= nil then
-                    lib.expand_or_collapse(node)
-
-                else
-                    require('nvim-tree.actions.node.open-file').fn(action,
-                                                                   node.absolute_path)
-
-                end
-
-            end
-            require("nvim-tree").setup({
+            nvim_tree.setup({
                 filters = {custom = {"^\\.git$"}},
-                view = {
-                    hide_root_folder = true,
-                    mappings = {
-                        custom_only = false,
-                        list = {
-                            {
-                                key = "e",
-                                action = "edit",
-                                action_cb = edit_or_open
-                            },
-                            {
-                                key = "v",
-                                action = "vsplit_preview",
-                                action_cb = vsplit_preview
-                            }, {key = "h", action = "close_node"},
-                            {
-                                key = "H",
-                                action = "collapse_all",
-                                action_cb = collapse_all
-                            }
-                        }
-                    }
+                live_filter = {
+                    prefix = "[FILTER]: ",
+                    always_show_folders = true
                 },
+                view = {hide_root_folder = true},
                 renderer = {icons = {git_placement = "after"}},
                 actions = {open_file = {quit_on_open = false}}
             })
-            vim.api.nvim_set_keymap("n", "<F2>", ":NvimTreeToggle<cr>",
+            -- Focus on NVim-Tree
+            vim.api.nvim_set_keymap("n", "<F2>", ":NvimTreeFocus<cr>",
                                     {silent = true, noremap = true})
-            -- vim.api.nvim_create_autocmd({"VimEnter"}, --{
-            -- callback = function()
-            -- require("nvim-tree.api").tree.open({
-            --    path = nil,
-            --   current_window = false,
-            --    find_file = false,
-            --    update_root = false
-            -- })
-            -- end
-            -- })
+            -- Closes NVim-Tree if open
+            vim.api.nvim_set_keymap("n", "<leader><F2>", ":NvimTreeToggle<cr>",
+                                    {silent = true, noremap = true})
         end,
         tag = 'nightly' -- optional, updated every week. (see issue #1193)
     }
-    use {
-        'kdheepak/tabline.nvim',
-        config = function()
-            require'tabline'.setup {
-                -- Defaults configuration options
-                enable = true,
-                options = {
-                    -- If lualine is installed tabline will use separators configured in lualine by default.
-                    -- These options can be used to override those settings.
-                    section_separators = {'', ''},
-                    component_separators = {'', ''},
-                    max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
-                    show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
-                    show_devicons = true, -- this shows devicons in buffer section
-                    show_bufnr = false, -- this appends [bufnr] to buffer section,
-                    show_filename_only = true, -- shows base filename only instead of relative path in filename
-                    modified_icon = "+ ", -- change the default modified icon
-                    modified_italic = true, -- set to true by default; this determines whether the filename turns italic if modified
-                    show_tabs_only = true -- this shows only tabs instead of tabs + buffers
-                }
-            }
-            vim.cmd [[
-      set guioptions-=e " Use showtabline in gui vim
-      set sessionoptions+=tabpages,globals " store tabpages and globals in session
-    ]]
-        end,
-        requires = {
-            {'hoob3rt/lualine.nvim', opt = true},
-            {'kyazdani42/nvim-web-devicons', opt = true}
-        }
-    }
+    -- use {
+    --     'kdheepak/tabline.nvim',
+    --     config = function()
+    --         require'tabline'.setup {
+    --             -- Defaults configuration options
+    --             enable = true,
+    --             options = {
+    --                 -- If lualine is installed tabline will use separators configured in lualine by default.
+    --                 -- These options can be used to override those settings.
+    --                 section_separators = {'', ''},
+    --                 component_separators = {'', ''},
+    --                 max_bufferline_percent = 66, -- set to nil by default, and it uses vim.o.columns * 2/3
+    --                 show_tabs_always = false, -- this shows tabs only when there are more than one tab or if the first tab is named
+    --                 show_devicons = true, -- this shows devicons in buffer section
+    --                 show_bufnr = false, -- this appends [bufnr] to buffer section,
+    --                 show_filename_only = true, -- shows base filename only instead of relative path in filename
+    --                 modified_icon = "+ ", -- change the default modified icon
+    --                 modified_italic = true, -- set to true by default; this determines whether the filename turns italic if modified
+    --                 show_tabs_only = true -- this shows only tabs instead of tabs + buffers
+    --             }
+    --         }
+    --         vim.cmd [[
+    --   set guioptions-=e " Use showtabline in gui vim
+    --   set sessionoptions+=tabpages,globals " store tabpages and globals in session
+    -- ]]
+    --     end,
+    --     requires = {
+    --         {'hoob3rt/lualine.nvim', opt = true},
+    --         {'kyazdani42/nvim-web-devicons', opt = true}
+    --     }
+    -- }
 
     use {
         'nvim-lualine/lualine.nvim',
@@ -183,17 +131,53 @@ return require('packer').startup(function(use)
         'gelguy/wilder.nvim',
         config = function()
             local wilder = require('wilder')
-            wilder.setup({modes = {':', '/', '?'}})
+            -- Set up Wilder modes (Command and search).
+            local modes = {modes = {':', '/'}}
+            wilder.setup(modes)
 
-            local highlighters = {
-                wilder.basic_highlighter(), wilder.lua_fzy_highlighter()
-            }
+            -- Pipelines define how each of the modes would use it's filters.
+            -- Similar to Signals, Hooks or Events callbacks based on
+            -- particular mode.
+            wilder.set_option('pipeline', {
+                wilder.branch(wilder.python_file_finder_pipeline({
+                    file_command = function(ctx, arg)
+                        if string.find(arg, '.') ~= nil then
+                            return {'rg', '--files'}
+                        else
+                            return {'rg', '--files'}
+                        end
+                    end,
+                    dir_command = {'fd', '-td'},
+                    filters = {'fuzzy_filter', 'difflib_sorter'},
+                    debounce = 2
+                }), wilder.cmdline_pipeline({
+                    -- sets the language to use, 'vim' and 'python' are supported
+                    language = 'vim',
+                    -- 0 turns off fuzzy matching
+                    -- 1 turns on fuzzy matching
+                    -- 2 partial fuzzy matching (match does not have to begin with the same first letter)
+                    fuzzy = 2
+                }), wilder.python_search_pipeline({
+                    -- can be set to wilder#python_fuzzy_delimiter_pattern() for stricter fuzzy matching
+                    pattern = wilder.python_fuzzy_delimiter_pattern(),
+                    -- omit to get results in the order they appear in the buffer
+                    sorter = wilder.python_difflib_sorter(),
+                    engine = 're'
+                }))
+            })
 
-            local popupmenu_renderer = wilder.popupmenu_renderer(
-                                           wilder.popupmenu_border_theme({
+            -- This is how Command mode should display.
+            local command_mode = wilder.popupmenu_renderer(
+                                     wilder.popupmenu_border_theme({
                     border = 'rounded',
                     empty_message = wilder.popupmenu_empty_message_with_spinner(),
-                    highlighter = highlighters,
+                    highlights = {
+                        accent = wilder.make_hl('WilderAccent', 'Pmenu', {
+                            {a = 2}, {a = 2},
+                            {foreground = '#fe8019', italic = true}
+                        })
+                    },
+                    highlighter = {wilder.lua_fzy_highlighter()},
                     left = {
                         ' ', wilder.popupmenu_devicons(),
                         wilder.popupmenu_buffer_flags({
@@ -204,17 +188,24 @@ return require('packer').startup(function(use)
                     right = {' ', wilder.popupmenu_scrollbar()}
                 }))
 
-            local wildmenu_renderer = wilder.wildmenu_renderer({
-                highlighter = highlighters,
-                separator = ' · ',
+            -- This is how search mode should display.
+            local search_mode = wilder.wildmenu_renderer({
+                highlighter = {wilder.lua_fzy_highlighter()},
+                highlights = {
+                    accent = wilder.make_hl('WilderAccent', 'Pmenu', {
+                        {a = 1}, {a = 1},
+                        {foreground = '#fe8019', italic = true}
+                    })
+                },
+                separator = ' § ',
                 left = {' ', wilder.wildmenu_spinner(), ' '},
                 right = {' ', wilder.wildmenu_index()}
             })
 
             wilder.set_option('renderer', wilder.renderer_mux({
-                [':'] = popupmenu_renderer,
-                ['/'] = wildmenu_renderer,
-                substitute = wildmenu_renderer
+                [':'] = command_mode,
+                ['/'] = search_mode,
+                substitute = search_mode
             }))
         end,
         requires = {'romgrk/fzy-lua-native', opt = false}
@@ -229,7 +220,6 @@ return require('packer').startup(function(use)
             vim.keymap.set('n', '<leader>ff', builtin.find_files, {})
             vim.keymap.set('n', '<leader>fg', builtin.live_grep, {})
             vim.keymap.set('n', '<leader>fb', builtin.buffers, {})
-            vim.keymap.set('n', '<leader>fh', builtin.help_tags, {})
         end
     }
     use {
@@ -246,44 +236,6 @@ return require('packer').startup(function(use)
 
     -- Fun
     use {'Eandrju/cellular-automaton.nvim'}
-    use {
-        'glepnir/dashboard-nvim',
-        event = 'VimEnter',
-        config = function()
-            require('dashboard').setup({
-                theme = 'hyper',
-                config = {
-                    week_header = {enable = true},
-                    shortcut = {
-                        {
-                            desc = ' Update',
-                            group = '@property',
-                            action = 'Lazy update',
-                            key = 'u'
-                        }, {
-                            icon = ' ',
-                            icon_hl = '@variable',
-                            desc = 'Files',
-                            group = 'Label',
-                            action = 'Telescope find_files',
-                            key = 'f'
-                        }, {
-                            desc = ' Apps',
-                            group = 'DiagnosticHint',
-                            action = 'Telescope app',
-                            key = 'a'
-                        }, {
-                            desc = ' dotfiles',
-                            group = 'Number',
-                            action = 'Telescope dotfiles',
-                            key = 'd'
-                        }
-                    }
-                }
-            })
-        end,
-        requires = {'nvim-tree/nvim-web-devicons'}
-    }
     use {'dstein64/vim-startuptime'}
     use {
         "m4xshen/smartcolumn.nvim",
@@ -292,16 +244,19 @@ return require('packer').startup(function(use)
             require("smartcolumn").setup({colorcolumn = 80})
         end
     }
-
     use {
         'karb94/neoscroll.nvim',
-        config = function() require('neoscroll').setup() end
-
+        config = function()
+            require('neoscroll').setup({
+                hide_cursor = true,
+                easing_function = "sine"
+            })
+        end
     }
     -- Fun
 
     -- Dev 
-    require('packer').use {
+    use {
         'mhartington/formatter.nvim',
 
         config = function()
@@ -328,7 +283,7 @@ return require('packer').startup(function(use)
     use({
         "Pocco81/auto-save.nvim",
         config = function()
-            -- FIXME: Enable autosave callbacks to format when it is fixed 
+            -- HOTFIX:Enable autosave callbacks to format when it is fixed
             require("auto-save").setup {}
         end
     })
@@ -337,15 +292,15 @@ return require('packer').startup(function(use)
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
         config = function()
+            -- NOTE: :TodoTelescope command is supported along with keywords
+            -- Example > :TodoTelescope keywords=TODO,FIX
             require("todo-comments").setup {
                 signs = true,
-                colors = {
-                    error = {"DiagnosticError", "ErrorMsg", "#DC2626"},
-                    warning = {"DiagnosticWarn", "WarningMsg", "#FBBF24"},
-                    info = {"DiagnosticInfo", "#2563EB"},
-                    hint = {"DiagnosticHint", "#10B981"},
-                    default = {"Identifier", "#7C3AED"},
-                    test = {"Identifier", "#FF00FF"}
+                keywords = {
+                    FIX = {
+                        -- a set of other keywords that all map to this FIX keywords
+                        alt = {"FIXME", "BUG", "FIXIT", "ISSUE", "HOTFIX"}
+                    }
                 }
             }
         end
@@ -363,12 +318,18 @@ return require('packer').startup(function(use)
     -- Dev
 
     -- LSP
+    use 'hrsh7th/nvim-cmp' -- Autocomplete plugin
+    use 'hrsh7th/cmp-nvim-lsp' -- LSP Source for nvim-cmp
+    use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
+    use 'L3MON4D3/LuaSnip' -- Snippets plugin
+    use 'hrsh7th/cmp-nvim-lsp-signature-help'
     use {
         'neovim/nvim-lspconfig',
         config = function()
 
-            local lspconfig = require('lspconfig')
+            local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
+            local lspconfig = require('lspconfig')
 
             local signs = {
                 Error = " ",
@@ -446,12 +407,74 @@ return require('packer').startup(function(use)
             }
 
             lspconfig['pyright'].setup({
+                capabilities = capabilities,
                 on_attach = on_attach
             })
             lspconfig['lua_ls'].setup({
                 on_attach = on_attach,
-                settings = lua_ls
+                settings = lua_ls,
+                capabilities = capabilities
             })
+
+            -- Set up nvim-cmp.
+            local cmp = require('cmp')
+            -- luasnip setup yeaheahw
+            local luasnip = require('luasnip')
+
+            cmp.setup({
+                enabled = function()
+                    -- disable completion in comments
+                    local context = require 'cmp.config.context'
+                    -- keep command mode completion enabled when cursor is in a comment
+                    if vim.api.nvim_get_mode().mode == 'c' then
+                        return true
+                    else
+                        return not context.in_treesitter_capture("comment") and
+                                   not context.in_syntax_group("Comment")
+                    end
+                end,
+                snippet = {
+                    -- REQUIRED - you must specify a snippet engine
+                    expand = function(args)
+                        luasnip.lsp_expand(args.body)
+                    end
+                },
+                window = {
+                    completion = cmp.config.window.bordered()
+                    -- documentation = cmp.config.window.bordered(),
+                },
+                mapping = cmp.mapping.preset.insert({
+                    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                    ['<C-Space>'] = cmp.mapping.complete(),
+                    ['<C-e>'] = cmp.mapping.abort(),
+                    -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+                    ['<CR>'] = cmp.mapping.confirm({select = true}),
+                    ['<Tab>'] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_next_item()
+                        elseif luasnip.expand_or_jumpable() then
+                            luasnip.expand_or_jump()
+                        else
+                            fallback()
+                        end
+                    end, {'i', 's'}),
+                    ['<S-Tab>'] = cmp.mapping(function(fallback)
+                        if cmp.visible() then
+                            cmp.select_prev_item()
+                        elseif luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            fallback()
+                        end
+                    end, {'i', 's'})
+                }),
+                sources = {
+                    {name = 'nvim_lsp'}, {name = 'snippy'},
+                    {name = 'nvim_lsp_signature_help'}
+                }
+            })
+
         end
     }
     -- use({
@@ -466,7 +489,25 @@ return require('packer').startup(function(use)
         'simrat39/symbols-outline.nvim',
 
         config = function()
-            require("symbols-outline").setup()
+            require("symbols-outline").setup({
+                width = 15,
+                show_symbol_details = false,
+                autofold_depth = 0,
+                keymaps = { -- These keymaps can be a string or a table for multiple keys
+                    close = {"<Esc>", "q"},
+                    goto_location = "<Cr>",
+                    focus_location = "o",
+                    hover_symbol = "<C-space>",
+                    toggle_preview = "K",
+                    rename_symbol = "r",
+                    code_actions = "a",
+                    fold = "h",
+                    unfold = "l",
+                    fold_all = "W",
+                    unfold_all = "E",
+                    fold_reset = "R"
+                }
+            })
 
             vim.api.nvim_set_keymap("n", "<F8>", ":SymbolsOutline<cr>",
                                     {silent = true, noremap = true})
@@ -474,28 +515,34 @@ return require('packer').startup(function(use)
         end
 
     }
-    -- use {
-    --     "amrbashir/nvim-docs-view",
-    --     opt = true,
-    --     cmd = {"DocsViewToggle"},
-    --     config = function()
-    --         require("docs-view").setup {position = "bottom"}
-    --     end
-    -- }
-    -- use {
-    --     'kosayoda/nvim-lightbulb',
-    --     requires = 'antoinemadec/FixCursorHold.nvim',
-    --     config = function()
-    --         require('nvim-lightbulb').setup({autocmd = {enabled = true}})
-    --     end
-    -- }
     use {
         'mfussenegger/nvim-lint',
         config = function()
-            vim.api.nvim_create_autocmd({"BufWritePost"}, {
-                callback = function() require("lint").try_lint() end
-            })
-            require('lint').linters_by_ft = {
+
+            local nvim_lint = require('lint')
+
+            vim.api.nvim_create_user_command('Lint', function() 
+              nvim_lint.try_lint()
+            end, {})
+
+            local function file_exists(name)
+                local f = io.open(name, "r")
+                if f ~= nil then
+                    io.close(f)
+                    return true
+                else
+                    return false
+                end
+            end
+            local bandit = require('lint').linters.bandit
+            if file_exists('bandit.yml') then
+                bandit.args = {
+                    "-f", "custom", "-c", "bandit.yml", "--msg-template",
+                    "{line}:{col}:{severity}:{test_id} {msg}"
+                }
+            end
+
+            nvim_lint.linters_by_ft = {
                 python = {'bandit', 'vulture', 'flake8'},
                 nix = {'nix'}
             }
