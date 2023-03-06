@@ -3,8 +3,7 @@
 {
   fonts = {
     fontDir.enable = true;
-    fonts = [
-      (pkgs.nerdfonts.override { fonts = [ "FiraCode" "JetBrainsMono" ]; })
-    ];
+    fonts =
+      [ (pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" "Iosevka" ]; }) ];
   };
 }
