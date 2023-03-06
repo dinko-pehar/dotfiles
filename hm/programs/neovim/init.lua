@@ -1,15 +1,16 @@
-require('plugins') -- Packer managed plugins
+vim.g.mapleader = ','
+-- Init Lazy NVim
+require('lazy-check') -- Install Lazy automatically and load it.
+require('lazy').setup('plugins')
 local opt = vim.opt
-
 -- Misc
 opt.backup = false -- Something about saving the file.
 opt.writebackup = false -- Something about saving the file.
 opt.ttyfast = true -- Speed up scrolling ?
 vim.cmd.filetype("plugin indent on")
-
 -- General
 -- Managed by plugin in plugins.
---opt.cc = "72,80,96" -- Ruler position.
+opt.cc = "72,80,96" -- Ruler position.
 -- opt.relativenumber = true
 opt.number = true
 opt.numberwidth = 6
@@ -39,7 +40,6 @@ opt.softtabstop = 2
 
 -- Theme
 opt.background = "dark"
-vim.cmd.colorscheme("gruvbox8")
 if vim.env.TERM_PROGRAM == "Apple_Terminal" then
     opt.termguicolors = false -- Apple Terminal does not support this 
 else
@@ -61,3 +61,6 @@ opt.hlsearch = false
 opt.mouse = "a" -- Enables mouse in all modes
 opt.mousefocus = false
 opt.mousescroll = "ver:3,hor:6"
+
+-- FIXME: Workaround for NVIM-CMP to apply correct highlight group.
+vim.cmd.colorscheme("gruvbox8")
