@@ -8,6 +8,7 @@
     nodePackages.yarn
     nodePackages.typescript
     deno
+    nodePackages.svelte-language-server
 
     #rustc
     #rustfmt
@@ -19,6 +20,7 @@
     go-outline
 
     cmake
+    lua
 
     #php74
     #php74Packages.composer # PHP package manager
@@ -52,12 +54,12 @@
     nodePackages.intelephense
     rust-analyzer
     nil # Nix Lang server
+    nodePackages.bash-language-server
     nodePackages.vscode-langservers-extracted
+    cmake-language-server
     #compose-language-service # NOTE: This is installed globally via PNPM
     #gradlels
     #cmake
-
-    
 
   ];
 }
