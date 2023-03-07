@@ -13,5 +13,7 @@
     #sops
     #groff # Related to AWS.
     #act # Run your GitHub Actions locally
+    ctop
+    lazydocker
   ];
 }
