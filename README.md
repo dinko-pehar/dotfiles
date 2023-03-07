@@ -2,12 +2,7 @@
 
 ## Preview
 
-![alt macos-overview](./.github/assets/macos-overview.png "MacOS")
-
-<p align="center">
-  <img width="300" src="https://raw.githubusercontent.com/dinko-pehar/dotfiles/development/.github/assets/macos-terminal.png" alt="MacOS Terminal" />
-  <img width="400" src="https://raw.githubusercontent.com/dinko-pehar/dotfiles/development/.github/assets/vscode.png" alt="Visual Studio Code" />
-</p>
+![alt macos-neovim](./.github/assets/macos-neovim.png "MacOS")
 
 ## About
 
