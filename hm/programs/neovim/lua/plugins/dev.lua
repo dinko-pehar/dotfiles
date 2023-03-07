@@ -2,7 +2,7 @@ return {
     {
         "Pocco81/auto-save.nvim",
         -- HOTFIX:Enable autosave callbacks to format when it is fixed
-        config = true
+        config = true,
     },
     {
         "folke/todo-comments.nvim",
@@ -22,9 +22,8 @@ return {
     },
     {
         "Exafunction/codeium.vim",
-        keys={{"<C-g>", mode="i"}},
+        keys = { { "<C-g>", mode = "i" } },
         config = function()
-
             vim.g.codeium_disable_bindings = 1
             vim.g.codeium_manual = 1
             -- Change '<C-g>' here to any keycode you like.
@@ -51,9 +50,6 @@ return {
     {
         "lifepillar/vim-gruvbox8",
         lazy = false,
-        config = function()
-            vim.cmd([[colorscheme gruvbox8]])
-        end,
     },
     {
         "ggandor/leap.nvim",
@@ -62,5 +58,5 @@ return {
         config = function()
             require("leap").add_default_mappings()
         end,
-    }
+    },
 }
