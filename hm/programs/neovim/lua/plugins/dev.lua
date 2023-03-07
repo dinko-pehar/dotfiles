@@ -23,10 +23,7 @@ return {
     {
         "Exafunction/codeium.vim",
         keys={{"<C-g>", mode="i"}},
-        init = function()
-            vim.api.nvim_create_user_command("LoadAI", function()
-                print("Loaded Codeium")
-            end, {})
+        config = function()
 
             vim.g.codeium_disable_bindings = 1
             vim.g.codeium_manual = 1
@@ -65,5 +62,5 @@ return {
         config = function()
             require("leap").add_default_mappings()
         end,
-    },
+    }
 }

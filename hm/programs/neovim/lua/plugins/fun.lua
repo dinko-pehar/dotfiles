@@ -2,7 +2,7 @@
 --  |                           Fun                            |
 --  +----------------------------------------------------------+
 return {
-    { "nvim-treesitter/nvim-treesitter", event = "BufRead" },
+    require("plugins.treesitter"),
     { "Eandrju/cellular-automaton.nvim", cmd = "CellularAutomaton" },
     { "m4xshen/smartcolumn.nvim", opts = { "100" }, event = "BufRead" },
     {

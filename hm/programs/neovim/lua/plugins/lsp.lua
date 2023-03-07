@@ -28,9 +28,7 @@ local function on_attach(_, bufnr)
         vim.lsp.buf.format({ async = true })
     end, bufopts)
 end
-
 local function has_words_before()
-    unpack = unpack
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
@@ -58,13 +56,12 @@ return {
                     { "dcampos/cmp-snippy" },
                     { "honza/vim-snippets" },
                     { "onsails/lspkind.nvim" },
-                },
+                }
             },
         },
         config = function()
-            local cmp = require("cmp")
-            local lspkind = require("lspkind")
             local snippy = require("snippy")
+            local cmp = require("cmp")
             cmp.setup({
                 enabled = function()
                     -- disable completion in comments
@@ -77,8 +74,8 @@ return {
                     end
                 end,
                 formatting = {
-                    format = lspkind.cmp_format({
-                        mode = "symbol",
+                    format = require("lspkind").cmp_format({
+                        mode = "symbol_text",
                         maxwidth = 50,
                         ellipsis_char = "...",
                         before = function(_, vim_item)
@@ -103,8 +100,8 @@ return {
                     ["<Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_next_item()
-                            -- elseif luasnip.expand_or_jumpable() then
-                            --     luasnip.expand_or_jump()
+                        elseif snippy.can_expand_or_advance() then
+                            snippy.expand_or_advance()
                         elseif has_words_before() then
                             cmp.complete()
                         else
@@ -114,8 +111,8 @@ return {
                     ["<S-Tab>"] = cmp.mapping(function(fallback)
                         if cmp.visible() then
                             cmp.select_prev_item()
-                            -- elseif luasnip.jumpable(-1) then
-                            --     luasnip.jump(-1)
+                        elseif snippy.can_jump(-1) then
+                            snippy.previous()
                         else
                             fallback()
                         end
@@ -123,7 +120,6 @@ return {
                 }),
                 sources = { { name = "nvim_lsp" }, { name = "snippy" } },
             })
-
             local capabilities = require("cmp_nvim_lsp").default_capabilities()
             local lspconfig = require("lspconfig")
 
@@ -184,8 +180,9 @@ return {
                     "scss",
                     "less",
                     "eruby",
+                    "jinja"
                 },
-                capabilities = extended_capatibilities,
+                capabilities = capabilities,
             })
             lspconfig["jsonls"].setup({
                 capabilities = extended_capatibilities,
@@ -205,6 +202,7 @@ return {
                 },
             })
 
+            -- TODO:GradleLS, Java, GraphQL, Ruby
             for _, value in pairs({
                 "tsserver",
                 "gopls",
@@ -212,6 +210,9 @@ return {
                 "dockerls",
                 "docker_compose_language_service",
                 "intelephense",
+                "bashls",
+                "cmake",
+                "kotlin_language_server"
             }) do
                 lspconfig[value].setup({
                     capabilities = capabilities,

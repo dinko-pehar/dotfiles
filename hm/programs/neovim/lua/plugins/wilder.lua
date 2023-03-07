@@ -1,5 +1,6 @@
 return {
     "gelguy/wilder.nvim",
+    build = "UpdateRemotePlugins",
     config = function()
         local wilder = require("wilder")
         -- Set up Wilder modes (Command and search).
